@@ -1,0 +1,47 @@
+tf_efficientnetv2_s.in21k_ft_in1k
+efficientnet_b7
+
+HYPERPARAMETERS = {
+    "model": {
+        "names": ["timm_image"],
+        "dropout_rate": 0.05,  # Even lower dropout since we want near-perfect fit
+        "timm_image": {
+            # Try these model variants in order of increasing power:
+            "checkpoint_name": "eva02_large_patch14_448.mim_m38m_ft_in22k_in1k",  # More powerful than swin
+            # Alternative options:.
+            # "convnext_v2_large_fcmae_ft_in22k_in1k_384"
+            # "beit_large_patch16_512"
+            "use_pretrained": True,
+        },
+    },
+    "optimization": {
+        "learning_rate": 2e-5,     # Even lower for finer optimization
+        "weight_decay": 5e-6,      # Reduced further
+        "max_epochs": 100,         # Doubled epochs
+        "batch_size": 8,          # Smaller batch size for better generalization
+        "optimizer": "adamw",
+        "lr_scheduler": "cosine_warmup",
+        "warmup_epochs": 5,        # Increased warmup
+        "gradient_clip_val": 0.5,  # Reduced for stability
+    },
+    "environment": {
+        "num_workers": 4,
+        "num_gpus": 1,
+    },
+    "data": {
+        "mixup_alpha": 0.2,      # Reduced mixup for less aggressive augmentation
+        "cutmix_alpha": 0.3,     # Reduced cutmix
+        "mixup_prob": 0.65,      # Control probability of mixup
+        "cutmix_prob": 0.65,     # Control probability of cutmix
+    },
+}
+
+"transform_params": {
+    "random_crop_scale": (0.85, 1.0),     # Less aggressive cropping
+    "random_brightness_factor": 0.2,       # Reduced intensity
+    "random_contrast_factor": 0.2,         # Reduced intensity
+    "random_saturation_factor": 0.2,       # Reduced intensity
+    "random_hue_factor": 0.05,            # Reduced intensity
+    "random_rotation_degrees": 10,         # Smaller rotation
+    "random_shear_degrees": 10,           # Smaller shear
+}
