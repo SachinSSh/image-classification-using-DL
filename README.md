@@ -106,16 +106,7 @@ model.save("path/to/save/model")
 ## License
 [MIT License](LICENSE)
 
-## Citation
-If you use this code in your research, please cite:
-```
-@article{yourname2025aidetection,
-  title={Advanced AI-Generated Image Detection using Ensemble Learning},
-  author={Your Name},
-  journal={arXiv preprint arXiv:XXXX.XXXXX},
-  year={2025}
-}
-```
+
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
